@@ -1,10 +1,7 @@
 def print_owring
   outstanding = 0.0
 
-  # バナーを出力
-  puts "*************************"
-  puts "***** Customer Owes *****"
-  puts "*************************"
+  print_banner
 
   # 勘定を計算
   @orders.each do |order|
@@ -14,4 +11,11 @@ def print_owring
   # 詳細を表示
   puts "name: #{@name}"
   puts "amount: #{@amount}"
+end
+
+def print_banner
+  # バナーを出力
+  puts "*************************"
+  puts "***** Customer Owes *****"
+  puts "*************************"
 end

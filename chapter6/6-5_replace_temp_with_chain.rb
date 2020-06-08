@@ -11,10 +11,8 @@ class Select
 
   def add_option(arg)
     options << arg
+    self
   end
 end
 
-select = Select.with_option(1999)
-select.add_option(2000)
-select.add_option(2001)
-select.add_option(2002)
+select = Select.with_option(1999).add_option(2000).add_option(2001).add_option(2002)

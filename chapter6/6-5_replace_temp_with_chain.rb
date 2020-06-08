@@ -1,4 +1,10 @@
 class Select
+  def self.with_option(option)
+    select = self.new
+    select.options << option
+    select
+  end
+
   def options
     @options ||= []
   end
@@ -8,8 +14,7 @@ class Select
   end
 end
 
-select = Select.new
-select.add_option(1999)
+select = Select.with_option(1999)
 select.add_option(2000)
 select.add_option(2001)
 select.add_option(2002)

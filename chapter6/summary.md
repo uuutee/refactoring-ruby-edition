@@ -115,7 +115,7 @@ end
 ```
 
 ### サンプル
-https://github.com/uuutee/refactoring-ruby-edition/pull/2
+https://github.com/uuutee/refactoring-ruby-edition/pull/4
 
 ## 6.5 一時変数からチェインへ (Replace Temp with Chain)
 

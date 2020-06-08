@@ -81,7 +81,7 @@ return (an_order.base_price > 1000)
 ### サンプル
 https://github.com/uuutee/refactoring-ruby-edition/pull/3
 
-## 6.４ 一時変数から問い合わせメソッドへ (Replace Temp with Query)
+## 6.4 一時変数から問い合わせメソッドへ (Replace Temp with Query)
 
 - 式をメソッドにする。一時変数のすべての参照箇所を式に置き換える
   - 新しくメソッド化すれば他のメソッドからも利用可能になる

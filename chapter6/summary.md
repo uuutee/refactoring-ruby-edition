@@ -205,4 +205,4 @@ puts area
 
 ### サンプル
 
-https://github.com/uuutee/refactoring-ruby-edition/pull/7
+https://github.com/uuutee/refactoring-ruby-edition/pull/8

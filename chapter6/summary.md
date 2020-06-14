@@ -5,7 +5,6 @@
 - コードの断片をメソッドにして、その目的を説明する名前をつける
 - コメントは抽出できるメソッドを見分けることに使える
 
-
 before
 
 ```ruby
@@ -31,6 +30,7 @@ end
 ```
 
 ### サンプル
+
 https://github.com/uuutee/refactoring-ruby-edition/pull/1
 
 ## 6.2 メソッドのインライン化 (Inline Method)
@@ -58,6 +58,7 @@ end
 ```
 
 ### サンプル
+
 https://github.com/uuutee/refactoring-ruby-edition/pull/2
 
 ## 6.3 一時変数のインライン化 (Inline Temp)
@@ -79,6 +80,7 @@ return (an_order.base_price > 1000)
 ```
 
 ### サンプル
+
 https://github.com/uuutee/refactoring-ruby-edition/pull/3
 
 ## 6.4 一時変数から問い合わせメソッドへ (Replace Temp with Query)
@@ -115,6 +117,7 @@ end
 ```
 
 ### サンプル
+
 https://github.com/uuutee/refactoring-ruby-edition/pull/4
 
 ## 6.5 一時変数からチェインへ (Replace Temp with Chain)
@@ -143,4 +146,37 @@ mock.expects(:a_method_name).with("arguments").returns([1, :array])
 ```
 
 ### サンプル
+
 https://github.com/uuutee/refactoring-ruby-edition/pull/5
+
+## 6.6 説明用変数の導入 (Introduce Explaning Variable)
+
+- 複雑な条件分岐のコードの条件に適切に名前をつける
+- 一時変数を使いすぎるとかえって見苦しくなる場合も多いため、「メソッドの抽出」をまず使えないかを考える
+
+before
+
+```ruby
+if (platform.upcase.index("MAC")) &&
+    browser.upcase.index("IE") &&
+    initialized? &&
+    resize > 0
+    )
+  # 何かをする
+```
+
+after
+
+```ruby
+is_mac_os = platform.upcase.index("MAC")
+is_ie_browser = browser.upcase.index("IE")
+was_resized = resize > 0
+
+if (is_mac_os && is_ie_browser && initialized? && was_resized)
+  # 何かをする
+end
+```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/7

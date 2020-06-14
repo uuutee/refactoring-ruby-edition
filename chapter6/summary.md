@@ -206,3 +206,100 @@ puts area
 ### サンプル
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/8
+
+## 6.8 引数への代入の除去 (Remove Assignments to Parameters)
+
+- 引数で渡ってきた値をそのまま変更することをやめる
+- 値渡しなのか、参照渡しなのかで混乱する
+- コードの紛らわしさでいうと、引数は「渡されたものを表す」ということなので、それが計算結果としてそのまま用いられることはよくない
+
+before
+
+```ruby
+def discount(input_val, quantity, year_to_date)
+  if input_val > 50
+    input_val -= 2
+  end
+end
+```
+
+after
+
+```ruby
+def discount(input_val, quantity, year_to_date)
+  result = input_val
+  if input_val > 50
+    reuslt -= 2
+  end
+end
+```
+
+### 値渡しと参照渡し
+
+Ruby は値渡しなので、関数内のスコープでのみ値が変更され、呼び出し元は影響を受けない
+
+```ruby
+x = 5
+def triple(arg)
+  arg = arg *3
+  puts "arg in triple: #{arg}"
+end
+triple x
+puts "x after triple #{x}"
+
+# 関数内のみ値が変更されている
+# => arg in triple: 15
+# => x after triple 5
+```
+
+ただし、オブジェクトの状態を変更するメソッドを呼び出した場合は、呼び出し元の変数も影響を受ける
+
+```ruby
+# 台帳
+class Ledger
+  # 残高
+  attr_reader :balance
+
+  def initialize(balance)
+    @balance = balance
+  end
+
+  def add(arg)
+    @balance += arg
+  end
+end
+
+class Product
+  # 引数に渡された Ledger の値を Ledger 自身で更新して出力する
+  def self.add_price_by_updating(ledger, price)
+    ledger.add(price)
+    puts "ledger in add_price_by_updating: #{ledger.balance}"
+  end
+
+  # 新しいオブジェクトを作り、その値を出力する
+  def self.add_price_by_replacing(ledger, price)
+    ledger = Ledger.new(ledger.balance + price)
+    puts "ledger in add_price_by_replacing: #{ledger.balance}"
+  end
+end
+
+l1 = Ledger.new(0)
+Product.add_price_by_updating(l1, 5)
+puts "l1 after add_price_by_updating: #{l1.balance}"
+
+l2 = Ledger.new(0)
+Product.add_price_by_replaceing(l2, 5)
+puts "l2 after add_price_by_replaceing: #{l2.balance}"
+
+# 自身のオブジェクトを更新した場合は、呼び出し元でも変更される
+# => ledger in add_price_updating: 5
+# => l1 after add_price_updating: 5
+
+# 新しくオブジェクトを作った場合あh、呼び出し元で影響は受けない
+# => ledger in add_price_updating: 5
+# => l2 after add_price_updating: 0
+```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/9

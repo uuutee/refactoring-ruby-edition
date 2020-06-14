@@ -180,3 +180,29 @@ end
 ### サンプル
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/7
+
+## 6.7 一時変数の分割 (Split Temporary Variable)
+
+- ループ変数でも計算結果の蓄積用の変数でもないのに使いまわしされる変数には、代入ごとに適切に名前をつけた一時変数を用意する
+
+before
+
+```ruby
+temp = 2 * (@height + @width)
+puts temp
+temp = @height * @width
+puts temp
+```
+
+after
+
+```ruby
+perimeter = 2 * (@height + @width)
+puts perimeter
+area = @height * @width
+puts area
+```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/7

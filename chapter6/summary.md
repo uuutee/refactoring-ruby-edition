@@ -206,3 +206,30 @@ puts area
 ### サンプル
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/8
+
+## 6.8 引数への代入の除去 (Remove Assignments to Parameters)
+
+- 引数で渡ってきた値をそのまま変更することをやめる
+- 値渡しなのか、参照渡しなのかで混乱する
+- コードの紛らわしさでいうと、引数は「渡されたものを表す」ということなので、それが計算結果としてそのまま用いられることはよくない
+
+before
+
+```ruby
+def discount(input_val, quantity, year_to_date)
+  if input_val > 50
+    input_val -= 2
+  end
+end
+```
+
+after
+
+```ruby
+def discount(input_val, quantity, year_to_date)
+  result = input_val
+  if input_val > 50
+    reuslt -= 2
+  end
+end
+```

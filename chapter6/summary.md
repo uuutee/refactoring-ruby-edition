@@ -299,3 +299,7 @@ puts "l2 after add_price_by_replaceing: #{l2.balance}"
 # => ledger in add_price_updating: 5
 # => l2 after add_price_updating: 0
 ```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/9

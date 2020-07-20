@@ -303,3 +303,19 @@ puts "l2 after add_price_by_replaceing: #{l2.balance}"
 ### サンプル
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/9
+
+## 6.9 メソッドからメソッドオブジェクトへ (Replace Method with Method Object)
+
+- メソッドの抽出を適用できないローカル変数を使っている長いメソッドが対象
+- メソッド自体をオブジェクトにして、ローカル変数をオブジェクトのインスタンス変数にする
+
+```ruby
+class Order
+  def price
+    primary_base_price = 0
+    secondary_base_price = 0
+    tertiary_base_price = 0
+  end  
+end
+```
+

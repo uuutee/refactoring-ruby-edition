@@ -308,6 +308,7 @@ https://github.com/uuutee/refactoring-ruby-edition/pull/9
 
 - メソッドの抽出を適用できないローカル変数を使っている長いメソッドが対象
 - メソッド自体をオブジェクトにして、ローカル変数をオブジェクトのインスタンス変数にする
+- 切り出すこと自体もそうだが、オブジェクトに切り出すことで、 ローカル変数によらずメソッドを切り出しやすくなるなど、その後のリファクタリングに対してメリットが有る
 
 ```ruby
 class Order
@@ -319,3 +320,6 @@ class Order
 end
 ```
 
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/10

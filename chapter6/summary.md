@@ -295,7 +295,7 @@ puts "l2 after add_price_by_replaceing: #{l2.balance}"
 # => ledger in add_price_updating: 5
 # => l1 after add_price_updating: 5
 
-# 新しくオブジェクトを作った場合あh、呼び出し元で影響は受けない
+# 新しくオブジェクトを作った場合は、呼び出し元で影響は受けない
 # => ledger in add_price_updating: 5
 # => l2 after add_price_updating: 0
 ```

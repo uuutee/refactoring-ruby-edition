@@ -28,13 +28,19 @@ class Person
   # 特定の名前を持つ子孫の数を数えるメソッド
   # 再帰的に、自身の子が指定した名前と同じ名前であれば +1 する
   def number_of_descendants_named(name)
-    children.inject(0) do |count, child|
-      count += 1 if child.name == name
-      count + child.number_of_descendants_named(name)
-    end
+    count_descendants_matching(name)
   end
 
   def alive?
     @date_of_death.nil?
+  end
+
+  protected
+
+  def count_descendants_matching(name)
+    children.inject(0) do |count, child|
+      count += 1 if child.name == name
+      count + child.number_of_descendants_named(name)
+    end
   end
 end

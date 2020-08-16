@@ -358,3 +358,8 @@ def found_friends
   end
 end
 ```
+
+## 6.11 ループからコレクションクロージャメソッドへ (Replace Loop with Collection Closure Method)
+
+- コレクションの要素をループで処理している場合は、 `select`, `collect` (`map`), `inject` (`reduce`) といった適切なコレクションクロージャーメソッドを導入する
+- メソッドチェインを使えばコレクションの処理をパイプとフィルタのように行える

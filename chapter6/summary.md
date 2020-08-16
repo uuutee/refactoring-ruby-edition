@@ -427,3 +427,46 @@ after
 ```ruby
 total = employees.inject(0) { |sum, e| sum += e.salary }
 ```
+
+## 6.12 サンドイッチメソッドの抽出 (Extract Surrounding Method)
+- 重複したコードは、通常 Extract Method などで重複部分を抽出するが、重複部分がメソッドの中央にある場合はそのまま適用できない
+- その場合は、`yield` を利用して、重複部分を抽出してブロック付きのメソッドにすることで抽出できる
+- `yield` は呼び出し元に制御を返すので、返ってきた制御を呼び出し元のブロック内で処理できる
+
+before
+
+```ruby
+def charge(amount, credit_card_number)
+  begin
+    connection = CreditCardServer.connect(...)
+    connection.send(amount, credit_card_number)
+  rescue IOError => e
+    Logger.log "Could not submit order #{@order_number} to the server: #{e}"
+    return nil
+  ensure
+    connection.close
+  end
+end
+```
+
+after
+
+```ruby
+def charge(amount, credit_card_number)
+  connect do |connection|
+    connection.send(amount, credit_card_number)
+  end
+end
+
+def connect
+  begin
+    connection = CreditCardServer.connect(...)
+    yield connection
+  rescue IOError => e
+    Logger.log "Could not submit order #{@order_number} to the server: #{e}"
+    return nil
+  ensure
+    connection.close
+  end
+end
+```

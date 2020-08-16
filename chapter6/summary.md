@@ -470,3 +470,7 @@ def connect
   end
 end
 ```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/15

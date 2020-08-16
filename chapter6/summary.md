@@ -323,3 +323,38 @@ end
 ### サンプル
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/10
+
+## 6.10 アルゴリズム変更 (Substitute Algorithm)
+
+- メソッド本体を新しいアルゴリズムで書き換える
+- 大げさな名前がつけられているが、 if 文でベタで書いたものをきれいに select と include? でまとめてるだけ
+
+before
+
+```ruby
+def found_friends
+  friends = []
+  pepole.each do |person|
+    if person == "Don"
+      friends << "Don"
+    end
+    if person == "John"
+      friends << "John"
+    end
+    if person == "Kent"
+      friends << "Kent"
+    end
+  end
+  return friends
+end
+```
+
+after
+
+```ruby
+def found_friends
+  pepole.select do |person|
+    %w(Don John Kent).include? person
+  end
+end
+```

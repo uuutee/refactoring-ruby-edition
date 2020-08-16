@@ -15,4 +15,26 @@ class Person
   def add_child(child)
     @children << child
   end
+
+  # 生きている子孫の数を数えるメソッド
+  # 再帰的に、自身の子が生きていれば +1 する
+  def number_of_living_descendants
+    children.inject(0) do |count, child|
+      count += 1 if child.alive?
+      count + child.number_of_living_descendants
+    end
+  end
+
+  # 特定の名前を持つ子孫の数を数えるメソッド
+  # 再帰的に、自身の子が指定した名前と同じ名前であれば +1 する
+  def number_of_descendants_named(name)
+    children.inject(0) do |count, child|
+      count += 1 if child.name == name
+      count + child.number_of_descendants_named(name)
+    end
+  end
+
+  def alive?
+    @date_of_death.nil?
+  end
 end

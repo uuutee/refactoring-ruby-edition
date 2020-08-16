@@ -358,3 +358,72 @@ def found_friends
   end
 end
 ```
+
+## 6.11 ループからコレクションクロージャメソッドへ (Replace Loop with Collection Closure Method)
+
+- コレクションの要素をループで処理している場合は、 `select`, `collect` (`map`), `inject` (`reduce`) といった適切なコレクションクロージャーメソッドを導入する
+- メソッドチェインを使えばコレクションの処理をパイプとフィルタのように行える
+
+### select で置き換えられるケース
+
+before
+
+```ruby
+managers = []
+employees.each do |e|
+  managers << e if e.manager?
+end
+```
+
+after
+
+```ruby
+managers = employees.select { |e| e.manager? }
+```
+
+### collect (map) で置き換えられるケース
+
+before
+
+```ruby
+offices = []
+employees.each { |e| offices << e.office }
+```
+
+after
+
+```ruby
+offices = employees.collect { |e| e.office }
+```
+
+### メソッドチェイン
+
+before
+
+```ruby
+managerOffices = []
+employees.each do |e|
+  managerOffices << e.office if e.manager?
+end
+```
+
+after
+
+```ruby
+managerOffices = employees.select{ |e| e.manager? }.collect{ |e| e.office }
+```
+
+### inject (reduce) で置き換えられるケース
+
+before
+
+```ruby
+total = 0
+employees.each { |e| total += e.salary }
+```
+
+after
+
+```ruby
+total = employees.inject(0) { |sum, e| sum += e.salary }
+```

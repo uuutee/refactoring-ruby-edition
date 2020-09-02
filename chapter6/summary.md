@@ -498,3 +498,8 @@ class SearchCriteria
   hash_initializer :author, :publisher_id, :isbn
 end
 ```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/16
+

@@ -474,3 +474,27 @@ end
 ### サンプル
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/15
+
+## 6.13 クラスアノテーションの導入 (Introduce Class Annotation)
+
+- 単純な attr_accessor への代入のようなコードは、 クラスアノテーションに置き換えることができる
+
+before
+
+```ruby
+class SearchCriteria
+  def initialize(hash)
+    @author_id = hash[:author_id]
+    @publisher_id = hash[:publisher_id]
+    @isbn = hash[:isbn]
+  end
+end
+```
+
+after
+
+```ruby
+class SearchCriteria
+  hash_initializer :author, :publisher_id, :isbn
+end
+```

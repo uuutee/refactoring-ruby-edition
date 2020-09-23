@@ -518,3 +518,7 @@ after
 ```ruby
 SearchCriteria.new(:author_id => 5, :publisher_id => 8, :isbn => "0201485672")
 ```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/17

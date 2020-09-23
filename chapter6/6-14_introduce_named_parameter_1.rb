@@ -1,11 +1,17 @@
-class SearchCriteria
-  attr_reader :author_id, :publisher_id, :isbn
-
-  def initialize(author_id, publisher_id, isbn)
-    @author_id = author_id
-    @publisher_id = publisher_id
-    @isbn = isbn
+module CustomInitializers
+  def hash_initializer(*attribute_names)
+    define_method(:initialize) do |*args|
+      data = args.first || {}
+      attribute_names.each do |attribute_name|
+        instance_variable_set "@#{attribute_name}", data[attribute_name]
+      end
+    end
   end
 end
 
-criteria = SearchCriteria.new(5, 8, "0201485672")
+Class.send :include, CustomInitializers
+
+class SearchCriteria
+  hash_initializer :author_id, :publisher_id, :isbn
+end
+criteria = SearchCriteria.new(:author_id => 5, :publisher_id => 8, :isbn => "0201485672")

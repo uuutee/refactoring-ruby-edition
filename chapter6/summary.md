@@ -503,3 +503,18 @@ end
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/16
 
+## 6.14 名前付き引数の導入 (Introduce Named Parameter)
+
+- 名前付き引数を使うことで、名前なしに比べてメソッドをどのように使うか推測できるようになる
+
+before
+
+```ruby
+SearchCriteria.new(5, 8, "0201485672")
+```
+
+after
+
+```ruby
+SearchCriteria.new(:author_id => 5, :publisher_id => 8, :isbn => "0201485672")
+```

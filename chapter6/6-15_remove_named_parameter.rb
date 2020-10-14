@@ -1,5 +1,5 @@
 class Books
-  def self.find(hash={})
+  def self.find(selector, hash={})
     hash[:joins] ||= []
     hash[:conditions] ||= ""
     sql = ["SELECT FROM books"]
@@ -8,7 +8,7 @@ class Books
       sql << "ON books.#{join_table.to_s.chomp}_id = #{join_table}.id"
     end
     sql << "WHERE #{hash[:conditions]}" unless hash[:conditions].empty?
-    sql << "LIMIT 1" if hash[:selector] == :first
+    sql << "LIMIT 1" if selector == :first
 
     connection.find(sql.join(" "))
   end
@@ -16,10 +16,11 @@ end
 
 # :all 全件、:first 1件 の結果が返ると予想がつくが引数なしの場合は、実装を見ないと、結果が何件返るかわからない
 # selector という名前がわかりにくい問題もある
-Books.find
-Books.find(:selector => :all,
+# selector 引数を必須にして、名前付きパラメータを取り除くことでわかりやすくした
+Books.find(:all)
+Books.find(:all,
            :conditions => "author.name = 'Jenny James'",
            :joins => [:authors])
-Books.find(:selector => :first,
+Books.find(:first,
            :conditions => "author.name = 'JennyJames'",
            :joins => [:authors])

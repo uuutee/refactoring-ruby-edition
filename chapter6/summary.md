@@ -542,3 +542,26 @@ IsbnSearch.new("0201485672")
 ### サンプル
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/18
+
+## 6.16 使われていないデフォルト引数の除去 (Remove Unused Default Parameter)
+
+- 引数にデフォルト値が指定されているが、引数無しで呼び出されることがない場合は、デフォルト値を取り除く
+- コードの発展とともに、デフォルト値が必要な呼び出しが全くなくなることがある
+- ソフトウェアにおいて使われていない柔軟性は悪
+
+before
+
+```ruby
+def product_count_items(search_criteria=nil)
+  criteria = search_criteria | @search_criteria
+  ProductCountItem.find_all_by_criteria(criteria)
+end
+```
+
+after
+
+```ruby
+def product_count_items(search_criteria)
+  ProductCountItem.find_all_by_criteria(search_criteria)
+end
+```

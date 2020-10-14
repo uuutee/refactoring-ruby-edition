@@ -541,7 +541,6 @@ IsbnSearch.new("0201485672")
 
 ### サンプル
 
-https://github.com/uuutee/refactoring-ruby-edition/pull/18
 
 ## 6.16 使われていないデフォルト引数の除去 (Remove Unused Default Parameter)
 
@@ -565,3 +564,31 @@ def product_count_items(search_criteria)
   ProductCountItem.find_all_by_criteria(search_criteria)
 end
 ```
+
+## 6.17 動的メソッド定義 (Dynamic Method Definition)
+
+- メソッドを動的に定義することで、引数を追加するだけなど簡単に定義できるようになる
+
+before
+
+```ruby
+def failure
+  self.state = :failure
+end
+
+def error
+  self.state = :error
+end
+```
+
+after
+
+```ruby
+def_each :failure, :error do |method_name|
+  self.state = method_name  
+end
+```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/20

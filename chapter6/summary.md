@@ -522,3 +522,23 @@ SearchCriteria.new(:author_id => 5, :publisher_id => 8, :isbn => "0201485672")
 ### サンプル
 
 https://github.com/uuutee/refactoring-ruby-edition/pull/17
+
+## 6.15 名前付き引数の除去 (Remove Named Parameter)
+
+- 名前付き引数によって、メソッド呼び出しが複雑になるデメリットが有る場合は、名前なし引数に置き換える
+
+before
+
+```ruby
+IsbnSearch.new(:isbn => "0201485672")
+```
+
+after
+
+```ruby
+IsbnSearch.new("0201485672")
+```
+
+### サンプル
+
+https://github.com/uuutee/refactoring-ruby-edition/pull/18
